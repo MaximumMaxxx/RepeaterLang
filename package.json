@@ -1,0 +1,20 @@
+{
+  "name": "parser",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "grun": "java -Xmx500M -cp './antlr-4.9.2-complete.jar:$CLASSPATH' org.antlr.v4.gui.TestRig -Dlanguage=JavaScript -gui Repeater.g4",
+    "antlr4": "java -Xmx500M -cp './antlr-4.9.2-complete.jar:$CLASSPATH' org.antlr.v4.Tool -o ./AntlrOut -Dlanguage=JavaScript -visitor Repeater.g4"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "antlr4": "^4.9.3"
+  },
+  "devDependencies": {
+    "prettier": "2.5.1"
+  },
+  "type": "module"
+}
