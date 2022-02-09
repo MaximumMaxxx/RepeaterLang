@@ -6,37 +6,37 @@ grammar Repeater;
 
 statment: command+ ;
 
-command: execute | say;
+command: (execute | say);
 
-execute: executePart* (runCommand);
+execute: 'execute' executePart* (runCommand);
 
 executePart: (as | align | anchored | at | facing);
 
-align: 'align' AXIS;
-as: 'as' TARGET;
+align: 'align' MULTIAXIS;
+as: 'as' target;
 anchored: 'anchored' ANCHORPOINT;
-at: 'at' TARGET;
+at: 'at' target|coordinate;
 facing: 'facing' facingTarget;
 
-say: 'say' STRING;
+say: 'say' literal;
 
 runCommand: 'run' command;
 
-facingTarget: ('entity' TARGET | COORDINATE);
+facingTarget: ('entity' target | coordinate);
+literal        : ('"' STRING* '"') | STRING+;
+target         : (STRING | '@'('a'|'e'|'p'|'r'|'s'));
+singlecordinate: ('~' | INT | DECIMAL) ' '?;
+coordinate     : (singlecordinate singlecordinate singlecordinate);
 
 /*
  * Lexer Rules
 */
 
-DIGIT          : [0-9];
 INT            : '-'? DIGIT+;
 DECIMAL        : '-'? DIGIT+ '.' DIGIT+;
-
-STRING         : [0-9a-zA-Z]+;
-AXIS           : ('x'|'y'|'z')+;
-TARGET         : (STRING+ | '@'('a'|'e'|'p'|'r'|'s'));
+MULTIAXIS      : AXIS+;
+AXIS           : ('x'|'y'|'z');
 ANCHORPOINT    : ('eyes'|'feet');
-SINGLECORDINATE: ('~' | INT | DECIMAL);
-COORDINATE     : (SINGLECORDINATE SINGLECORDINATE SINGLECORDINATE);
-
 WHITESPACE     : ' ' -> skip;
+DIGIT          : [0-9];
+STRING         : ([0-9]|[a-z]|[A-Z]|'_')+;

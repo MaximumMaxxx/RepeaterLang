@@ -17,7 +17,7 @@ const lexer = new RepeaterLexer(chars);
 const tokens = new antlr4.CommonTokenStream(lexer);
 const parser = new RepeaterParser(tokens);
 parser.buildParseTrees = true;
-const tree = parser.operation();
+const tree = parser.statment();
 
 class Visitor {
 visitChildren(ctx) {
